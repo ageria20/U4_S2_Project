@@ -1,6 +1,7 @@
 package ageria;
 
 import ageria.entities.Book;
+import ageria.entities.Magazine;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -19,6 +20,8 @@ public class Application {
 
 
         List<Book> bookList = new ArrayList<>();
+        List<Magazine> magazines = new ArrayList<>();
+
 
         while (true) {
 
@@ -26,52 +29,68 @@ public class Application {
             System.out.println("1 - Per aggiungere un Elemento");
             System.out.println("2 - Per eliminare un elemento");
             System.out.println("3 - Ricerca un articolo");
+            System.out.println("0 - Exit");
             System.out.println(bookList);
 
-            String choice = scanner.nextLine();
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-            if (Objects.equals(choice, "0")) break;
+            if (choice == 0) break;
             else {
                 switch (choice) {
-                    case "1":
-                        addElement(bookList);
+                    case 1:
+                        addBookElement(bookList);
                         break;
-                    case "2":
+                    case 2:
                         removeElement(bookList);
                         break;
-                    case "3":
+                    case 3:
                         searchBy(bookList);
+                        break;
+                    default:
                         break;
                 }
             }
         }
 
 
-        addElement(bookList);
         System.out.println(bookList);
         System.out.println("Vuoi inserire i librio dentro file? [y/n]");
         String choice = scanner.nextLine();
 
-        switch (choice) {
-            case "y":
-                try {
-                    writeData("src/catalog.txt", bookList);
-                } catch (IOException e) {
-                    System.out.println();
-                }
-                break;
-            default:
-                System.out.println("See u, bye");
-                break;
+        if (choice.equals("y")) {
+            try {
+                if (bookList.size() == 0) {
+                    System.out.println("La lista che vuoi trasformare e' vuota, prova a riempirla");
+                } else writeData("src/catalog.txt", bookList);
+            } catch (IOException e) {
+                System.out.println();
+            }
+        } else {
+            System.out.println("See u, bye");
         }
 
+        System.out.println("Vuoi legger la lista dei libri dentro file? [y/n]");
+        choice = scanner.nextLine();
+
+        if (choice.equals("y")) {
+            try {
+                if (bookList.size() == 0) {
+                    System.out.println("La lista che vuoi trasformare e' vuota, prova a riempirla");
+                } else readData("src/catalog.txt", bookList);
+            } catch (IOException e) {
+                System.out.println();
+            }
+        } else {
+            System.out.println("See u, bye");
+        }
 
         System.out.println(bookList);
 
 
     }
 
-    public static void addElement(List<Book> bookList) {
+    public static void addBookElement(List<Book> bookList) {
 
 
         try {
@@ -122,6 +141,7 @@ public class Application {
         System.out.println("1 - Cerca con ISBN");
         System.out.println("2 - Cerca per anno di pubblicazione");
         System.out.println("3 - Cerca per autore");
+        System.out.println("0 - Exit");
 
         String choice = scanner.nextLine();
         switch (choice) {
@@ -153,6 +173,11 @@ public class Application {
                     System.out.println("Input non valido. Assicurati di inserire i dati correttamente.");
                     scanner.nextLine();
                 }
+            case "0":
+                break;
+            default:
+                System.out.println("See u, bye");
+                break;
         }
 
 
