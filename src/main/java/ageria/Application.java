@@ -1,6 +1,7 @@
 package ageria;
 
 import ageria.entities.Book;
+import ageria.entities.CatalogElement;
 import ageria.entities.Magazine;
 import ageria.enums.Periodicity;
 import org.apache.commons.io.FileUtils;
@@ -58,7 +59,7 @@ public class Application {
                             int pages = scanner.nextInt();
                             scanner.nextLine();
 
-                            System.out.println("Inserisci il genere: ");
+                            System.out.println("Inserisci la periodicita' : ");
                             String periodicity = scanner.nextLine().toLowerCase();
                             switch (periodicity) {
                                 case "weekly":
@@ -116,7 +117,7 @@ public class Application {
             try {
                 if (bookList.size() == 0) {
                     System.out.println("La lista che vuoi trasformare e' vuota, prova a riempirla");
-                } else readData("src/catalog.txt", bookList);
+                } else readData("src/catalog.txt");
             } catch (IOException e) {
                 System.out.println();
             }
@@ -237,8 +238,9 @@ public class Application {
     }
 
 
-    public static void readData(String filePath, List<Book> bookList) throws IOException {
+    public static void readData(String filePath) throws IOException {
         String content = FileUtils.readFileToString(new File(filePath), StandardCharsets.UTF_8);
+        List<CatalogElement> bookList = new ArrayList<>();
         String[] contentAsArray = content.split(System.lineSeparator());
         for (String book : contentAsArray) {
             String[] bookString = book.split(", ");
