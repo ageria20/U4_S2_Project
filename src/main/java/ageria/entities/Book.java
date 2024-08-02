@@ -1,14 +1,12 @@
 package ageria.entities;
 
-import java.time.LocalDate;
-
 public class Book extends CatalogElement {
 
     private String author;
     private String genre;
 
 
-    public Book(long isbn, String title, LocalDate publishedDate, int pages, String author, String genre) {
+    public Book(int isbn, String title, String publishedDate, int pages, String author, String genre) {
         super(isbn, title, publishedDate, pages);
         this.author = author;
         this.genre = genre;
@@ -34,6 +32,10 @@ public class Book extends CatalogElement {
     public String toString() {
         return "Book: " +
                 "author: '" + author + '\'' +
-                ", genre:'" + genre + '\'';
+                ", genre:'" + genre + '\'' +
+                "isbn: " + getIsbn() +
+                ", title: '" + getTitle() + '\'' +
+                ", publishedDate: " + getPublishedDate() +
+                ", pages: " + getPages();
     }
 }

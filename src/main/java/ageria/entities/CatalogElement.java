@@ -1,16 +1,14 @@
 package ageria.entities;
 
-import java.time.LocalDate;
-
 public abstract class CatalogElement {
 
-    private long isbn;
+    private int isbn;
     private String title;
-    private LocalDate publishedDate;
+    private String publishedDate;
     private int pages;
 
 
-    public CatalogElement(long isbn, String title, LocalDate publishedDate, int pages) {
+    public CatalogElement(int isbn, String title, String publishedDate, int pages) {
         this.isbn = isbn;
         this.title = title;
         this.publishedDate = publishedDate;
@@ -21,7 +19,7 @@ public abstract class CatalogElement {
         return isbn;
     }
 
-    public void setIsbn(long isbn) {
+    public void setIsbn(int isbn) {
         this.isbn = isbn;
     }
 
@@ -41,11 +39,11 @@ public abstract class CatalogElement {
         this.pages = pages;
     }
 
-    public LocalDate getPublishedDate() {
+    public String getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(LocalDate publishedDate) {
+    public void setPublishedDate(String publishedDate) {
         this.publishedDate = publishedDate;
     }
 
