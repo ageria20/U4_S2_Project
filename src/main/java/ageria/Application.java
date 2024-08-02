@@ -1,7 +1,11 @@
 package ageria;
 
 import ageria.entities.Book;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -38,6 +42,8 @@ public class Application {
         scanner.nextLine();
         removeElemet(bookList, isbn);
         System.out.println(bookList);
+
+
     }
 
     public static void addElemet(List<Book> bookList, Book book) {
@@ -59,6 +65,10 @@ public class Application {
 
     public static void searchByAuthor(List<Book> bookList, String author) {
         bookList.stream().filter(book -> Objects.equals(book.getPublishedDate(), author)).forEach(System.out::println);
+    }
+
+    public static void writeData(String filePath, List<Book> bookList) throws IOException {
+        FileUtils.writeStringToFile(new File("src/catalog.txt"), bookList.toString(), StandardCharsets.UTF_8, true);
     }
 
 
