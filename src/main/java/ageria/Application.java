@@ -2,6 +2,7 @@ package ageria;
 
 import ageria.entities.Book;
 import ageria.entities.Magazine;
+import ageria.enums.Periodicity;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -26,9 +27,10 @@ public class Application {
         while (true) {
 
             System.out.println("Scegli cosa fare");
-            System.out.println("1 - Per aggiungere un Elemento");
-            System.out.println("2 - Per eliminare un elemento");
-            System.out.println("3 - Ricerca un articolo");
+            System.out.println("1 - Per aggiungere un Libro");
+            System.out.println("2 - Per aggiungere un Magazine");
+            System.out.println("3 - Per eliminare un elemento");
+            System.out.println("4 - Ricerca un articolo");
             System.out.println("0 - Exit");
             System.out.println(bookList);
 
@@ -42,9 +44,46 @@ public class Application {
                         addBookElement(bookList);
                         break;
                     case 2:
+                        try {
+                            System.out.println("Inserisci il codice ISBN: ");
+                            int isbn = scanner.nextInt();
+                            scanner.nextLine();
+
+                            System.out.println("Inserisci il Titolo: ");
+                            String title = scanner.nextLine();
+                            System.out.println("Inserisci l'anno di pubblicazione: ");
+                            int year = scanner.nextInt();
+                            scanner.nextLine();
+                            System.out.println("Inserisci il numero di pagine: ");
+                            int pages = scanner.nextInt();
+                            scanner.nextLine();
+
+                            System.out.println("Inserisci il genere: ");
+                            String periodicity = scanner.nextLine().toLowerCase();
+                            switch (periodicity) {
+                                case "weekly":
+                                    Magazine magazine = new Magazine(isbn, title, year, pages, Periodicity.WEEKLY);
+                                    magazines.add(magazine);
+                                    break;
+                                case "monthly":
+                                    magazine = new Magazine(isbn, title, year, pages, Periodicity.MONTHLY);
+                                    magazines.add(magazine);
+                                    break;
+                                case "semestral":
+                                    magazine = new Magazine(isbn, title, year, pages, Periodicity.HALFYEARLY);
+                                    magazines.add(magazine);
+                                    break;
+                            }
+
+                        } catch (InputMismatchException e) {
+                            System.out.println(e.getMessage());
+                            scanner.nextLine();
+                        }
+
+                    case 3:
                         removeElement(bookList);
                         break;
-                    case 3:
+                    case 4:
                         searchBy(bookList);
                         break;
                     default:
