@@ -4,11 +4,11 @@ public abstract class CatalogElement {
 
     private int isbn;
     private String title;
-    private String publishedDate;
+    private int publishedDate;
     private int pages;
 
 
-    public CatalogElement(int isbn, String title, String publishedDate, int pages) {
+    public CatalogElement(int isbn, String title, int publishedDate, int pages) {
         this.isbn = isbn;
         this.title = title;
         this.publishedDate = publishedDate;
@@ -39,11 +39,11 @@ public abstract class CatalogElement {
         this.pages = pages;
     }
 
-    public String getPublishedDate() {
+    public int getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(String publishedDate) {
+    public void setPublishedDate(int publishedDate) {
         this.publishedDate = publishedDate;
     }
 

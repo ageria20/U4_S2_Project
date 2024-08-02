@@ -49,7 +49,21 @@ public class Application {
 
         addElement(bookList);
         System.out.println(bookList);
-        System.out.println("Inserisci il codice ISBN del libro che vuoi eleiminare dalla lista");
+        System.out.println("Vuoi inserire i librio dentro file? [y/n]");
+        String choice = scanner.nextLine();
+
+        switch (choice) {
+            case "y":
+                try {
+                    writeData("src/catalog.txt", bookList);
+                } catch (IOException e) {
+                    System.out.println();
+                }
+                break;
+            default:
+                System.out.println("See u, bye");
+                break;
+        }
 
 
         System.out.println(bookList);
@@ -58,14 +72,18 @@ public class Application {
     }
 
     public static void addElement(List<Book> bookList) {
+
+
         try {
             System.out.println("Inserisci il codice ISBN: ");
             int isbn = scanner.nextInt();
             scanner.nextLine();
+
             System.out.println("Inserisci il Titolo: ");
             String title = scanner.nextLine();
             System.out.println("Inserisci l'anno di pubblicazione: ");
-            String year = scanner.nextLine();
+            int year = scanner.nextInt();
+            scanner.nextLine();
             System.out.println("Inserisci il numero di pagine: ");
             int pages = scanner.nextInt();
             scanner.nextLine();
@@ -75,8 +93,9 @@ public class Application {
             String genre = scanner.nextLine();
             Book book = new Book(isbn, title, year, pages, author, genre);
             bookList.add(book);
+
         } catch (InputMismatchException e) {
-            System.out.println("Errore: input non valido. Assicurati di inserire i dati correttamente.");
+            System.out.println(e.getMessage());
             scanner.nextLine();
         }
     }
@@ -92,8 +111,8 @@ public class Application {
                 bookList.removeIf(book -> book.getIsbn() == isbn);
                 System.out.println("Lista aggiornata: " + bookList);
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Errore: input non valido. Assicurati di inserire un numero valido.");
+        } catch (RuntimeException e) {
+            System.out.println("Input non valido. Assicurati di inserire i dati correttamente.");
             scanner.nextLine();
         }
     }
@@ -113,23 +132,26 @@ public class Application {
                     scanner.nextLine();
                     bookList.stream().filter(book -> book.getIsbn() == isbn).forEach(book -> System.out.println(book));
                 } catch (InputMismatchException e) {
-                    System.out.println("Dato errato, inserisci un numero valido" + e.getMessage());
+                    System.out.println("Input non valido. Assicurati di inserire i dati correttamente.");
+                    scanner.nextLine();
                 }
             case "2":
                 try {
-                    System.out.println("Inserisci il codice ISBN dell'elemento che vuoi cercare");
+                    System.out.println("Inserisci l'anno di pubblicazione dell'elemento che vuoi cercare");
                     String year = scanner.nextLine();
                     bookList.stream().filter(book -> Objects.equals(book.getPublishedDate(), year)).forEach(System.out::println);
                 } catch (InputMismatchException e) {
-                    System.out.println("Dato errato, inserisci un numero valido" + e.getMessage());
+                    System.out.println("Input non valido. Assicurati di inserire i dati correttamente.");
+                    scanner.nextLine();
                 }
             case "3":
                 try {
-                    System.out.println("Inserisci il codice ISBN dell'elemento che vuoi cercare");
+                    System.out.println("Inserisci il nome dell'Autore dell'elemento che vuoi cercare");
                     String author = scanner.nextLine();
                     bookList.stream().filter(book -> Objects.equals(book.getAuthor(), author)).forEach(System.out::println);
                 } catch (InputMismatchException e) {
-                    System.out.println("Dato errato, inserisci un numero valido" + e.getMessage());
+                    System.out.println("Input non valido. Assicurati di inserire i dati correttamente.");
+                    scanner.nextLine();
                 }
         }
 
@@ -161,9 +183,10 @@ public class Application {
                 String title = bookString[1];
                 String author = bookString[2];
                 int pages = Integer.parseInt(bookString[3]);
-                String year = bookString[4];
+                int year = Integer.parseInt(bookString[4]);
                 String genre = bookString[5];
                 bookList.add(new Book(isbn, title, year, pages, author, genre));
+                System.out.println(bookList);
             }
         }
     }

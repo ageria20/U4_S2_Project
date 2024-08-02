@@ -6,7 +6,7 @@ public class Book extends CatalogElement {
     private String genre;
 
 
-    public Book(int isbn, String title, String publishedDate, int pages, String author, String genre) {
+    public Book(int isbn, String title, int publishedDate, int pages, String author, String genre) {
         super(isbn, title, publishedDate, pages);
         this.author = author;
         this.genre = genre;
