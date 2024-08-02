@@ -68,7 +68,12 @@ public class Application {
     }
 
     public static void writeData(String filePath, List<Book> bookList) throws IOException {
-        FileUtils.writeStringToFile(new File("src/catalog.txt"), bookList.toString(), StandardCharsets.UTF_8, true);
+        FileUtils.writeStringToFile(new File(filePath), bookList.toString(), StandardCharsets.UTF_8, true);
+    }
+
+    public static void readData(String filePath, List<Book> bookList) throws IOException {
+        String content = FileUtils.readFileToString(new File(filePath), StandardCharsets.UTF_8);
+        String[] contentAsArray = content.split(System.lineSeparator());
     }
 
 
