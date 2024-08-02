@@ -2,7 +2,7 @@ package ageria.entities;
 
 import java.time.LocalDate;
 
-public class CatalogElement {
+public abstract class CatalogElement {
 
     private long isbn;
     private String title;
@@ -47,5 +47,14 @@ public class CatalogElement {
 
     public void setPublishedDate(LocalDate publishedDate) {
         this.publishedDate = publishedDate;
+    }
+
+    @Override
+    public String toString() {
+        return "CatalogElement: " +
+                "isbn: " + isbn +
+                ", title: '" + title + '\'' +
+                ", publishedDate: " + publishedDate +
+                ", pages: " + pages;
     }
 }
